@@ -21,5 +21,13 @@ namespace OnTheBeach.Models
 
         [JsonProperty(PropertyName = "nights")]
         public int Nights { get; set; }
+
+        public decimal Price
+        {
+            get
+            {
+                return PricePerNight * Nights;
+            }
+        }
     }
 }

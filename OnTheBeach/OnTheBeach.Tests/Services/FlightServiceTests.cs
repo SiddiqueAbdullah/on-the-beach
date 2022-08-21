@@ -9,18 +9,18 @@ namespace OnTheBeach.Tests.Services
     public class FlightServiceTests
     {
         private readonly IFlightService _flightService;
-        private readonly Mock<IFlightRepository> _flightRepository;
+        private readonly Mock<IFlightRepository> _flightRepositoryMock;
 
         public FlightServiceTests()
         {
-            _flightRepository = new Mock<IFlightRepository>();
-            _flightService = new FlightService(_flightRepository.Object);
+            _flightRepositoryMock = new Mock<IFlightRepository>();
+            _flightService = new FlightService(_flightRepositoryMock.Object);
         }
 
         [Fact]
         public async void GetBestValueOrdered_Should_Return_Flights_Ordered_By_BestValue()
         {
-            _flightRepository
+            _flightRepositoryMock
                 .Setup(m => m.GetFilteredFlights(It.IsAny<List<string>>(), It.IsAny<string>(), It.IsAny<DateTime?>()))
                 .ReturnsAsync(new List<Flight> 
                 {
