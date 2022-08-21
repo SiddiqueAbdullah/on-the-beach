@@ -27,17 +27,20 @@ namespace OnTheBeach.Tests.Services
                     new Hotel
                     {
                         Id = 1,
-                        PricePerNight = 500
+                        PricePerNight = 500,
+                        Nights = 7
                     },
                     new Hotel
                     {
                         Id = 2,
-                        PricePerNight = 300
+                        PricePerNight = 300,
+                        Nights = 7
                     },
                     new Hotel
                     {
                         Id = 3,
-                        PricePerNight = 900
+                        PricePerNight = 900,
+                        Nights = 7
                     },
                 });
 

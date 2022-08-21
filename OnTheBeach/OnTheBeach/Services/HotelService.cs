@@ -13,9 +13,11 @@ namespace OnTheBeach.Services
             _hotelRepository = hotelRepository;
         }
 
-        public Task<List<Hotel>> GetBestValueOrdered(List<string> localAirports, DateTime? date, int? duration)
+        public async Task<List<Hotel>> GetBestValueOrdered(List<string> localAirports, DateTime? date, int? duration)
         {
-            throw new NotImplementedException();
+            var filteredHotels = await _hotelRepository.GetFilteredHotels(localAirports, date, duration);
+
+            return filteredHotels.OrderBy(f => f.Price).ToList();
         }
     }
 }
