@@ -5,9 +5,23 @@ namespace OnTheBeach.Services
 {
     public class HolidayService : IHolidayService
     {
-        public Task<HolidayResponse> GetBestValue(List<string> departingFrom, string travelingTo, DateTime departureDate, int duration)
+        private const string TravelingToMissingError = "TravelingTo cannot be null or empty";
+
+        public async Task<HolidayResponse> GetBestValue(List<string> departingFrom, string travelingTo, DateTime departureDate, int duration)
         {
-            throw new NotImplementedException();
+            var error = ValidateParameters(travelingTo);
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                return new HolidayResponse { Error = error };
+            }
+
+            return new HolidayResponse();
+        }
+
+        private string ValidateParameters(string travelingTo)
+        {
+            return string.IsNullOrEmpty(travelingTo) ? TravelingToMissingError : string.Empty;
         }
     }
 }
