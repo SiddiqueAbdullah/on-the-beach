@@ -73,5 +73,20 @@ namespace OnTheBeach.Tests.Services
             Assert.Equal(7, bestValue.Flight.Id);
             Assert.Equal(6, bestValue.Hotel.Id);
         }
+
+        [Fact]
+        public async void GetBestValue_Should_Return_BestValue_Holiday_Customer_4()
+        {
+            var result = await _holidayService.GetBestValue(new List<string>(), "PMI", new DateTime(2023, 6, 15), 14);
+
+            Assert.True(string.IsNullOrEmpty(result.Error));
+            Assert.NotNull(result.Holidays);
+            Assert.NotEmpty(result.Holidays);
+
+            var bestValue = result.Holidays.First();
+
+            Assert.Equal(6, bestValue.Flight.Id);
+            Assert.Equal(3, bestValue.Hotel.Id);
+        }
     }
 }
