@@ -1,4 +1,5 @@
-﻿using OnTheBeach.Services;
+﻿using OnTheBeach.Data;
+using OnTheBeach.Services;
 using OnTheBeach.Services.Interfaces;
 
 namespace OnTheBeach.Tests.Services
@@ -11,7 +12,13 @@ namespace OnTheBeach.Tests.Services
 
         public HolidayServiceTests()
         {
-            _holidayService = new HolidayService();
+            var flightRepository = new FlightRepository();
+            var flightService = new FlightService(flightRepository);
+
+            var hotelRepository = new HotelRepository();
+            var hotelService = new HotelService(hotelRepository);
+
+            _holidayService = new HolidayService(flightService, hotelService);
         }
 
         [Fact]
@@ -27,7 +34,7 @@ namespace OnTheBeach.Tests.Services
         {
             var result = await _holidayService.GetBestValue(new List<string> { "MAN" }, "AGP", new DateTime(2023, 7, 1), 7);
 
-            Assert.Empty(result.Error);
+            Assert.True(string.IsNullOrEmpty(result.Error));
             Assert.NotNull(result.Holidays);
             Assert.NotEmpty(result.Holidays);
 
@@ -42,7 +49,7 @@ namespace OnTheBeach.Tests.Services
         {
             var result = await _holidayService.GetBestValue(new List<string> { "LGW", "LTN" }, "PMI", new DateTime(2023, 6, 15), 10);
 
-            Assert.Empty(result.Error);
+            Assert.True(string.IsNullOrEmpty(result.Error));
             Assert.NotNull(result.Holidays);
             Assert.NotEmpty(result.Holidays);
 
@@ -57,7 +64,7 @@ namespace OnTheBeach.Tests.Services
         {
             var result = await _holidayService.GetBestValue(new List<string>(), "LPA", new DateTime(2022, 11, 10), 14);
 
-            Assert.Empty(result.Error);
+            Assert.True(string.IsNullOrEmpty(result.Error));
             Assert.NotNull(result.Holidays);
             Assert.NotEmpty(result.Holidays);
 

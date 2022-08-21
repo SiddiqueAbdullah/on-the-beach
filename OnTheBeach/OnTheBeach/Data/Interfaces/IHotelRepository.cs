@@ -4,6 +4,6 @@ namespace OnTheBeach.Data.Interfaces
 {
     public interface IHotelRepository
     {
-        Task<List<Hotel>> GetFilteredHotels(List<string> localAirports, DateTime? date, int? duration);
+        Task<List<Hotel>> GetFilteredHotels(List<string> arrivalAirports, DateTime? date, int? duration);
     }
 }
